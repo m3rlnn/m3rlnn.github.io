@@ -179,3 +179,24 @@ input:focus, select:focus, textarea:focus {
     transform: translateY(-2px);
     opacity: 0.95;
 }
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 8px 0 6px 0;
+}
+
+.tag {
+    font-size: 0.75em;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: #222;
+    border: 1px solid #333;
+    color: #ccc;
+}
+
+.tag-engine { border-color: #3a3a5a; }
+.tag-vehicle { border-color: #3a5a3a; }
+.tag-system { border-color: #5a3a3a; }
+.tag-sound { border-color: #5a5a3a; }
