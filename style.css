@@ -475,3 +475,50 @@ body {
     transition: none;
   }
 }
+.mod-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.mod-filters input {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #2a2a2a;
+  background: #121212;
+  color: #eaeaea;
+  font-size: 0.95rem;
+}
+
+.mod-filters input::placeholder {
+  color: #888;
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filter-buttons button {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid #2a2a2a;
+  background: #161616;
+  color: #ccc;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.filter-buttons button:hover {
+  background: #1f1f1f;
+  border-color: #444;
+}
+
+.filter-buttons button.active {
+  background: #eaeaea;
+  color: #111;
+  border-color: #eaeaea;
+}
