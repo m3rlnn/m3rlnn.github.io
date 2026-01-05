@@ -405,3 +405,8 @@ input:focus, select:focus, textarea:focus {
     pointer-events: none;       /* clicks pass through */
     z-index: -1;                /* stays behind everything */
 }
+
+body {
+    position: relative;
+    z-index: 0;
+}
