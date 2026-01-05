@@ -10,268 +10,321 @@
 
   <div class="bg-logo"></div>
 
-<!-- Global links (edit these once) -->
-<script>
-  const MCW_PATREON = "https://www.patreon.com/MerlinsCustomWorks";
-  const MCW_DISCORD = "https://discord.gg/9Dx7QPfXha";
-</script>
+  <!-- Global links (edit these once) -->
+  <script>
+    const MCW_PATREON = "https://www.patreon.com/MerlinsCustomWorks";
+    const MCW_DISCORD = "https://discord.gg/9Dx7QPfXha";
+  </script>
 
-<header class="site-header">
-  <a href="index.html" class="site-title">Merlin Custom Works</a>
+  <header class="site-header">
+    <a href="index.html" class="site-title">Merlin Custom Works</a>
 
-  <nav class="site-nav">
-    <a href="index.html">Home</a>
-    <a href="mods.html">Mods</a>
-    <a href="commissions.html">Commissions</a>
-    <a href="blog.html">Devlog</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="mods.html" class="active">Mods</a>
+      <a href="commissions.html">Commissions</a>
+      <a href="blog.html">Devlog</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
 
-<section class="hero">
-  <h2>Mods</h2>
-  <p>Browse released mods and upcoming projects.</p>
-</section>
+  <section class="hero">
+    <h2>Mods</h2>
+    <p>Browse released mods and upcoming projects.</p>
+  </section>
 
-<section class="mod-filters">
-  <input
-    type="text"
-    id="modSearch"
-    placeholder="Search mods…"
-    aria-label="Search mods"
-  >
+  <!-- Search + Filters -->
+  <section class="mod-filters">
+    <input
+      type="text"
+      id="modSearch"
+      placeholder="Search mods…"
+      aria-label="Search mods"
+    >
 
-  <div class="filter-buttons">
-    <button data-filter="all" class="active">All</button>
-    <button data-filter="engine">Engine</button>
-    <button data-filter="wheels">Wheels</button>
-    <button data-filter="car">Cars</button>
-    <button data-filter="released">Released</button>
-    <button data-filter="wip">WIP</button>
-  </div>
-</section>
+    <div class="filter-buttons">
+      <button data-filter="all" class="active">All</button>
+      <button data-filter="engine">Engine</button>
+      <button data-filter="wheels">Wheels</button>
+      <button data-filter="car">Cars</button>
+      <button data-filter="released">Released</button>
+      <button data-filter="wip">WIP</button>
+    </div>
+  </section>
 
-<section>
-  <h2>Released</h2>
+  <!-- RELEASED -->
+  <section>
+    <h2>Released</h2>
 
-  <div class="grid">
+    <div class="grid">
 
-    <!-- CARD 1 -->
-    <div class="card">
-      <div class="carousel" data-carousel>
-      <div class="carousel-track is-loading">
-        <img class="carousel-slide" src="images/vn-sedan-ls.jpg" alt="CFW VN screenshot 1" loading="lazy">
-        <img class="carousel-slide" src="images/vn-sedan-ls2.jpg" alt="CFW VN screenshot 2" loading="lazy">
-        <img class="carousel-slide" src="images/vn-sedan-ls3.jpg" alt="CFW VN screenshot 3" loading="lazy">
-      </div>
+      <!-- CARD 1 -->
+      <div class="card" data-category="engine" data-status="released">
+        <div class="carousel" data-carousel>
+          <div class="carousel-track is-loading">
+            <img class="carousel-slide" src="images/vn-sedan-ls.jpg" alt="CFW VN screenshot 1" loading="lazy">
+            <img class="carousel-slide" src="images/vn-sedan-ls2.jpg" alt="CFW VN screenshot 2" loading="lazy">
+            <img class="carousel-slide" src="images/vn-sedan-ls3.jpg" alt="CFW VN screenshot 3" loading="lazy">
+          </div>
 
-      <button class="carousel-btn prev" type="button" aria-label="Previous image">‹</button>
-      <button class="carousel-btn next" type="button" aria-label="Next image">›</button>
+          <button class="carousel-btn prev" type="button" aria-label="Previous image">‹</button>
+          <button class="carousel-btn next" type="button" aria-label="Next image">›</button>
 
-        <div class="carousel-dots"></div>
-      </div>
+          <div class="carousel-dots"></div>
+        </div>
 
-      <div class="card-top">
-        <h3>CFW VN Engine Pack</h3>
-        <div class="card" data-category="engine" data-status="released">
-        <div class="badges">
-          <span class="badge badge-released">Released</span>
-          <span class="badge">v0.5</span>
+        <div class="card-top">
+          <h3>CFW VN Engine Pack</h3>
+          <div class="badges">
+            <span class="badge badge-released">Released</span>
+            <span class="badge">v0.5</span>
+          </div>
+        </div>
+
+        <p>
+          This mod is an addon for the CFW VN that adds a highly realistic GM LS1 5.7L and LS2 6.0L V8's with multiple intakes,
+          turbo kits, headers, internal parts, camshafts, and plenty more!
+        </p>
+
+        <div class="tags">
+          <span class="tag tag-engine">Engine</span>
+          <span class="tag">Realistic</span>
+          <span class="tag">Custom 3D Models</span>
+        </div>
+
+        <div class="access access-patreon">
+          <strong>Access:</strong> Patreon — <em>Legend Tier</em> ($15 AUD/month)
+        </div>
+
+        <p class="meta">
+          <strong>Compatibility:</strong> BeamNG v0.38+ (placeholder)<br>
+          <strong>Type:</strong> Engine
+        </p>
+
+        <div class="links">
+          <a class="icon-btn" href="#" data-link="patreon" title="Patreon" aria-label="Patreon link" target="_blank" rel="noopener">
+            <img src="assets/patreon.svg" alt="Patreon">
+          </a>
+          <a class="icon-btn" href="#" data-link="discord" title="Discord" aria-label="Discord link" target="_blank" rel="noopener">
+            <img src="assets/discord.svg" alt="Discord">
+          </a>
         </div>
       </div>
 
-      <p>This mod is an addon for the CFW VN that adds a highly realistic GM LS1 5.7L and LS2 6.0L V8's with multiple intakes, turbo kits, headers, internal parts, Camshafts, and Plenty more!</p>
+      <!-- CARD 2 -->
+      <div class="card" data-category="wheels" data-status="released">
+        <div class="placeholder-img"></div>
 
-      <div class="tags">
-      <span class="tag tag-engine">Engine</span>
-      <span class="tag">Realistic</span>
-      <span class="tag">Custom 3D Models</span>
-      </div>
+        <div class="card-top">
+          <h3>Holden/HSV Wheel and Hubcap Pack</h3>
+          <div class="badges">
+            <span class="badge badge-released">Released</span>
+            <span class="badge">v1.5</span>
+          </div>
+        </div>
 
-      <div class="access access-patreon">
-      <strong>Access:</strong> Patreon — <em>Legend Tier</em> ($15aud/month)
-      </div>
+        <p>
+          This Wheel and Hubcap Pack adds a large range of Holden and HSV wheels and hubcaps from VN to VF.
+          Still expanding — currently ~30 wheels as of January 2026.
+        </p>
 
-      <p class="meta">
-        <strong>Compatibility:</strong> BeamNG v0.38+ (placeholder)<br>
-        <strong>Type:</strong> Engine
-      </p>
+        <div class="tags">
+          <span class="tag">Wheels</span>
+          <span class="tag">Realistic</span>
+          <span class="tag">Custom 3D Models</span>
+        </div>
 
-      <div class="links">
-        <a class="icon-btn" href="https://www.patreon.com/MerlinsCustomWorks" data-link="patreon" title="Patreon" aria-label="Patreon link" target="_blank" rel="noopener">
-          <img src="assets/patreon.svg" alt="Patreon">
-        </a>
-        <a class="icon-btn" href="https://discord.gg/9Dx7QPfXha" data-link="discord" title="Discord" aria-label="Discord link" target="_blank" rel="noopener">
-          <img src="assets/discord.svg" alt="Discord">
-        </a>
-      </div>
-    </div>
+        <div class="access access-patreon">
+          <strong>Access:</strong> Patreon — <em>Legend Tier</em> ($15 AUD/month)
+        </div>
 
-    <!-- CARD 2 -->
-    <div class="card">
-      <div class="placeholder-img"></div>
+        <p class="meta">
+          <strong>Compatibility:</strong> BeamNG v0.38+ (placeholder)<br>
+          <strong>Type:</strong> Wheels
+        </p>
 
-      <div class="card-top">
-        <h3>Holden/HSV Wheel and Hubcap Pack</h3>
-        <div class="card" data-category="wheels" data-status="released">
-        <div class="badges">
-          <span class="badge badge-released">Released</span>
-          <span class="badge">v1.5</span>
+        <div class="links">
+          <a class="icon-btn" href="#" data-link="patreon" title="Patreon" aria-label="Patreon link" target="_blank" rel="noopener">
+            <img src="assets/patreon.svg" alt="Patreon">
+          </a>
+          <a class="icon-btn" href="#" data-link="discord" title="Discord" aria-label="Discord link" target="_blank" rel="noopener">
+            <img src="assets/discord.svg" alt="Discord">
+          </a>
         </div>
       </div>
 
-      <p>This Wheel and Hubcap Pack adds majority of Holden and HSV wheels and Hubcaps from VN to VF, This pack is still expanding however currently has approx. 30 wheels as of January 2026</p>
-
-      <div class="tags">
-      <span class="tag tag-engine">Wheels</span>
-      <span class="tag">Realistic</span>
-      <span class="tag">Custom 3D Models</span>
-      </div>
-
-      <div class="access access-patreon">
-      <strong>Access:</strong> Patreon — <em>Legend Tier</em> ($15aud/month)
-      </div>
-      
-      <p class="meta">
-        <strong>Compatibility:</strong> BeamNG v0.38+ (placeholder)<br>
-        <strong>Type:</strong> Wheels
-      </p>
-
-      <div class="links">
-        <a class="icon-btn" href="https://www.patreon.com/MerlinsCustomWorks" data-link="patreon" title="Patreon" aria-label="Patreon link" target="_blank" rel="noopener">
-          <img src="assets/patreon.svg" alt="Patreon">
-        </a>
-        <a class="icon-btn" href="https://discord.gg/9Dx7QPfXha" data-link="discord" title="Discord" aria-label="Discord link" target="_blank" rel="noopener">
-          <img src="assets/discord.svg" alt="Discord">
-        </a>
-      </div>
     </div>
+  </section>
 
-  </div>
-</section>
+  <!-- WIP -->
+  <section>
+    <h2>Work in progress</h2>
 
-<section>
-  <h2>How to install</h2>
-  <div class="card">
-    <ol>
-      <li>Download the mod from the Discord after Purchasing the Required Patreon Tier.</li>
-      <li>Drop the <strong>.zip</strong> into your BeamNG <strong>mods</strong> folder.</li>
-      <li>Launch BeamNG and enable it in the Mod Manager if needed.</li>
-    </ol>
-    <p class="meta">Tip: Keep only the latest version of the same mod installed at once.</p>
-  </div>
-</section>
+    <div class="grid">
 
-<footer>
-  <p>© Merlin Custom Works</p>
-</footer>
+      <!-- Example WIP card (delete if you want) -->
+      <div class="card" data-category="car" data-status="wip">
+        <div class="placeholder-img"></div>
 
-<script>
-  // Apply global links to all icon buttons
-  document.querySelectorAll('[data-link="patreon"]').forEach(a => a.href = MCW_PATREON);
-  document.querySelectorAll('[data-link="discord"]').forEach(a => a.href = MCW_DISCORD);
-</script>
+        <div class="card-top">
+          <h3>Example WIP Project</h3>
+          <div class="badges">
+            <span class="badge">WIP</span>
+            <span class="badge">Concept</span>
+          </div>
+        </div>
+
+        <p>Short description of what you’re currently building. Add screenshots when ready.</p>
+
+        <div class="tags">
+          <span class="tag">Cars</span>
+          <span class="tag">In Development</span>
+        </div>
+
+        <p class="meta">
+          <strong>Compatibility:</strong> BeamNG v0.38+ (placeholder)<br>
+          <strong>Type:</strong> Vehicle
+        </p>
+
+        <div class="links">
+          <a class="icon-btn" href="#" data-link="patreon" title="Patreon" aria-label="Patreon link" target="_blank" rel="noopener">
+            <img src="assets/patreon.svg" alt="Patreon">
+          </a>
+          <a class="icon-btn" href="#" data-link="discord" title="Discord" aria-label="Discord link" target="_blank" rel="noopener">
+            <img src="assets/discord.svg" alt="Discord">
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>How to install</h2>
+    <div class="card">
+      <ol>
+        <li>Download the mod from the Discord after purchasing the required Patreon tier.</li>
+        <li>Drop the <strong>.zip</strong> into your BeamNG <strong>mods</strong> folder.</li>
+        <li>Launch BeamNG and enable it in the Mod Manager if needed.</li>
+      </ol>
+      <p class="meta">Tip: Keep only the latest version of the same mod installed at once.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© Merlin Custom Works</p>
+  </footer>
+
+  <button class="back-to-top" type="button" aria-label="Back to top">↑</button>
 
   <script>
-  // Existing global links (keep this if you already have it)
-  document.querySelectorAll('[data-link="patreon"]').forEach(a => a.href = MCW_PATREON);
-  document.querySelectorAll('[data-link="discord"]').forEach(a => a.href = MCW_DISCORD);
+    // Apply global links
+    document.querySelectorAll('[data-link="patreon"]').forEach(a => a.href = MCW_PATREON);
+    document.querySelectorAll('[data-link="discord"]').forEach(a => a.href = MCW_DISCORD);
 
-  // Carousel setup
-  document.querySelectorAll('[data-carousel]').forEach((carousel) => {
-    const track = carousel.querySelector('.carousel-track');
-    const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
-    const prevBtn = carousel.querySelector('.carousel-btn.prev');
-    const nextBtn = carousel.querySelector('.carousel-btn.next');
-    const dotsWrap = carousel.querySelector('.carousel-dots');
+    // Back to top
+    const backBtn = document.querySelector(".back-to-top");
+    function toggleBackToTop() {
+      if (!backBtn) return;
+      if (window.scrollY > 500) backBtn.classList.add("show");
+      else backBtn.classList.remove("show");
+    }
+    window.addEventListener("scroll", toggleBackToTop, { passive: true });
+    toggleBackToTop();
+    backBtn?.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
-    if (!track || slides.length === 0) return;
+    // Carousel setup
+    document.querySelectorAll('[data-carousel]').forEach((carousel) => {
+      const track = carousel.querySelector('.carousel-track');
+      const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
+      const prevBtn = carousel.querySelector('.carousel-btn.prev');
+      const nextBtn = carousel.querySelector('.carousel-btn.next');
+      const dotsWrap = carousel.querySelector('.carousel-dots');
 
-    // Build dots
-    dotsWrap.innerHTML = "";
-    const dots = slides.map((_, i) => {
-      const d = document.createElement('div');
-      d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-      d.addEventListener('click', () => goTo(i));
-      dotsWrap.appendChild(d);
-      return d;
+      if (!track || slides.length === 0) return;
+
+      // Build dots
+      dotsWrap.innerHTML = "";
+      const dots = slides.map((_, i) => {
+        const d = document.createElement('div');
+        d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        d.addEventListener('click', () => goTo(i));
+        dotsWrap.appendChild(d);
+        return d;
+      });
+
+      let index = 0;
+
+      function update() {
+        track.style.transform = `translateX(${-index * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+      }
+
+      function goTo(i) {
+        index = (i + slides.length) % slides.length;
+        update();
+      }
+
+      prevBtn?.addEventListener('click', () => goTo(index - 1));
+      nextBtn?.addEventListener('click', () => goTo(index + 1));
+
+      carousel.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') goTo(index - 1);
+        if (e.key === 'ArrowRight') goTo(index + 1);
+      });
+      carousel.tabIndex = 0;
+
+      // Blur until first image loads
+      const first = slides[0];
+      if (first.complete) track.classList.remove('is-loading');
+      else {
+        first.addEventListener('load', () => track.classList.remove('is-loading'), { once: true });
+        first.addEventListener('error', () => track.classList.remove('is-loading'), { once: true });
+      }
+
+      if (slides.length === 1) {
+        prevBtn.style.display = "none";
+        nextBtn.style.display = "none";
+        dotsWrap.style.display = "none";
+      }
     });
 
-    let index = 0;
+    // Search + filter
+    const searchInput = document.getElementById("modSearch");
+    const filterButtons = document.querySelectorAll(".filter-buttons button");
+    const cards = document.querySelectorAll(".grid .card"); // IMPORTANT: only real mod cards
 
-    function update() {
-      track.style.transform = `translateX(${-index * 100}%)`;
-      dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    let activeFilter = "all";
+
+    function applyFilters() {
+      const query = (searchInput?.value || "").toLowerCase();
+
+      cards.forEach(card => {
+        const title = card.querySelector("h3")?.textContent.toLowerCase() || "";
+        const category = card.dataset.category;
+        const status = card.dataset.status;
+
+        const matchesSearch = title.includes(query);
+        const matchesFilter =
+          activeFilter === "all" ||
+          category === activeFilter ||
+          status === activeFilter;
+
+        card.style.display = (matchesSearch && matchesFilter) ? "" : "none";
+      });
     }
 
-    function goTo(i) {
-      index = (i + slides.length) % slides.length;
-      update();
-    }
+    searchInput?.addEventListener("input", applyFilters);
 
-    prevBtn?.addEventListener('click', () => goTo(index - 1));
-    nextBtn?.addEventListener('click', () => goTo(index + 1));
-
-    // Keyboard support when hovered/focused
-    carousel.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') goTo(index - 1);
-      if (e.key === 'ArrowRight') goTo(index + 1);
+    filterButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        filterButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        activeFilter = btn.dataset.filter;
+        applyFilters();
+      });
     });
-    carousel.tabIndex = 0;
+  </script>
 
-    // Remove blur once the first image loads
-    const first = slides[0];
-    if (first.complete) {
-      track.classList.remove('is-loading');
-    } else {
-      first.addEventListener('load', () => track.classList.remove('is-loading'), { once: true });
-      first.addEventListener('error', () => track.classList.remove('is-loading'), { once: true });
-    }
-
-    // If only one slide, hide arrows & dots
-    if (slides.length === 1) {
-      prevBtn.style.display = "none";
-      nextBtn.style.display = "none";
-      dotsWrap.style.display = "none";
-    }
-  });
-</script>
-<script>
-  const searchInput = document.getElementById("modSearch");
-  const filterButtons = document.querySelectorAll(".filter-buttons button");
-  const cards = document.querySelectorAll(".card");
-
-  let activeFilter = "all";
-
-  function applyFilters() {
-    const query = searchInput.value.toLowerCase();
-
-    cards.forEach(card => {
-      const title = card.querySelector("h3")?.textContent.toLowerCase() || "";
-      const category = card.dataset.category;
-      const status = card.dataset.status;
-
-      const matchesSearch = title.includes(query);
-      const matchesFilter =
-        activeFilter === "all" ||
-        category === activeFilter ||
-        status === activeFilter;
-
-      card.style.display = (matchesSearch && matchesFilter) ? "" : "none";
-    });
-  }
-
-  searchInput.addEventListener("input", applyFilters);
-
-  filterButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      filterButtons.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      activeFilter = btn.dataset.filter;
-      applyFilters();
-    });
-  });
-</script>
-<button class="back-to-top" type="button" aria-label="Back to top">↑</button>
 </body>
 </html>
