@@ -522,3 +522,14 @@ body {
   color: #111;
   border-color: #eaeaea;
 }
+/* Taller image for WIP showcase cards */
+.card-wip .carousel,
+.card-wip .placeholder-img {
+  height: 420px;
+}
+
+.card-wip .carousel-track,
+.card-wip img.carousel-slide {
+  height: 100%;
+  object-fit: cover;
+}
