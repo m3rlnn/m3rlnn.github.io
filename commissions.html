@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Commissions | Merlin Custom Works</title>
+  <title>Commissions | Merlins Custom Works</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,7 +11,7 @@
 <div class="bg-logo"></div>
   
 <header class="site-header">
-  <a href="index.html" class="site-title">Merlin Custom Works</a>
+  <a href="index.html" class="site-title">Merlins Custom Works</a>
 
   <nav class="site-nav">
     <a href="index.html">Home</a>
@@ -64,18 +64,15 @@
         <input name="discord" type="text" placeholder="e.g. m3rlin_.">
       </label>
 
-      <label>
-        What do you want made?
-        <select name="type" required>
-          <option value="" disabled selected>Select one</option>
-          <option>Realistic Jbeam Parts</option>
-          <option>Camshafts</option>
-          <option>Engine 3D Model</option>
-          <option>Custom Jbeam</option>
-          <option>Custom Sounds</option>
-          <option>Other</option>
-        </select>
-      </label>
+      <fieldset>
+      <legend>What do you want made?</legend>
+
+        <label><input type="checkbox" name="type[]" value="Realistic Jbeam Parts"> Realistic Jbeam Parts</label><br>
+        <label><input type="checkbox" name="type[]" value="Camshafts"> Camshafts</label><br>
+        <label><input type="checkbox" name="type[]" value="Engine 3D Model"> Engine 3D Model</label><br>
+        <label><input type="checkbox" name="type[]" value="Custom Sounds"> Custom Sounds</label><br>
+        <label><input type="checkbox" name="type[]" value="Other"> Other</label>
+      </fieldset>
 
       <label>
         Description (be specific)
