@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Commissions | Merlin Custom Works</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -19,22 +20,117 @@
 
 <section class="hero">
   <h2>Commissions</h2>
-  <p>Request custom BeamNG.drive work — engines, configs, systems, and more.</p>
+  <p>Request custom BeamNG.drive work — engines, vehicles, configs, systems, and more.</p>
 </section>
 
 <section>
-  <h2>Request Form</h2>
-  <p>Fill this out and it will email me your answers.</p>
-
-  <!-- Formspree will go here in Step 3 -->
+  <h2>How it works</h2>
   <div class="card">
-    <p><strong>Form not connected yet.</strong> Next step is wiring this up to email.</p>
+    <ul>
+      <li>Send a request using the form below.</li>
+      <li>I’ll reply with questions, price range, and an ETA.</li>
+      <li>Once we agree on scope, I’ll start the work.</li>
+    </ul>
+    <p class="meta">I may decline requests that are unrealistic, unsafe, or outside my scope.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Request form</h2>
+
+  <div class="card">
+    <form action="https://formspree.io/f/xlgdzdap" method="POST">
+      <!-- Helps email deliverability -->
+      <input type="hidden" name="_subject" value="New MCW Commission Request">
+      <!-- Optional: redirect after submit -->
+      <input type="hidden" name="_redirect" value="https://m3rlnn.github.io/commissions.html?sent=1">
+
+      <label>
+        Your name / alias
+        <input name="name" type="text" required placeholder="e.g. Archer / username">
+      </label>
+
+      <label>
+        Email (so I can reply)
+        <input name="email" type="email" required placeholder="you@example.com">
+      </label>
+
+      <label>
+        Discord username (optional but recommended)
+        <input name="discord" type="text" placeholder="e.g. MerlinCustomWorks#0000">
+      </label>
+
+      <label>
+        What do you want made?
+        <select name="type" required>
+          <option value="" disabled selected>Select one</option>
+          <option>Engine / powertrain</option>
+          <option>Vehicle mod</option>
+          <option>Configs / tuning</option>
+          <option>JBeam realism / fixes</option>
+          <option>Sounds / audio work</option>
+          <option>Other</option>
+        </select>
+      </label>
+
+      <label>
+        Description (be specific)
+        <textarea name="description" required rows="6" placeholder="What you want, what car it’s for, desired behaviour, realism level, etc."></textarea>
+      </label>
+
+      <label>
+        Reference links (optional)
+        <textarea name="references" rows="3" placeholder="Paste links (images, videos, docs, mods to match, etc.)"></textarea>
+      </label>
+
+      <label>
+        BeamNG version / target compatibility (optional)
+        <input name="beamng_version" type="text" placeholder="e.g. 0.32+ or latest">
+      </label>
+
+      <label>
+        Budget range (AUD)
+        <select name="budget" required>
+          <option value="" disabled selected>Select one</option>
+          <option>$0–$50</option>
+          <option>$50–$150</option>
+          <option>$150–$400</option>
+          <option>$400+</option>
+        </select>
+      </label>
+
+      <label>
+        Deadline (optional)
+        <input name="deadline" type="text" placeholder="e.g. No rush / by end of Feb / before event">
+      </label>
+
+      <!-- Anti-spam honeypot -->
+      <input type="text" name="_gotcha" style="display:none">
+
+      <button type="submit" class="btn">Send request</button>
+
+      <p class="meta" style="margin-top:12px;">
+        By submitting, you agree I may ask follow-up questions, adjust scope, or decline.
+      </p>
+    </form>
   </div>
 </section>
 
 <footer>
   <p>© Merlin Custom Works</p>
 </footer>
+
+<script>
+  // Optional: show a simple message after redirect
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("sent") === "1") {
+    const h2 = document.querySelector('section h2');
+    const notice = document.createElement('p');
+    notice.textContent = "✅ Request sent. Check your email for a confirmation if enabled.";
+    notice.className = "meta";
+    h2.insertAdjacentElement("afterend", notice);
+  }
+</script>
 
 </body>
 </html>
