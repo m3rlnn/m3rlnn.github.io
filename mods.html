@@ -33,6 +33,24 @@
   <p>Browse released mods and upcoming projects.</p>
 </section>
 
+<section class="mod-filters">
+  <input
+    type="text"
+    id="modSearch"
+    placeholder="Search mods…"
+    aria-label="Search mods"
+  >
+
+  <div class="filter-buttons">
+    <button data-filter="all" class="active">All</button>
+    <button data-filter="engine">Engine</button>
+    <button data-filter="wheels">Wheels</button>
+    <button data-filter="car">Cars</button>
+    <button data-filter="released">Released</button>
+    <button data-filter="wip">WIP</button>
+  </div>
+</section>
+
 <section>
   <h2>Released</h2>
 
@@ -55,6 +73,7 @@
 
       <div class="card-top">
         <h3>CFW VN Engine Pack</h3>
+        <div class="card" data-category="engine" data-status="released">
         <div class="badges">
           <span class="badge badge-released">Released</span>
           <span class="badge">v0.5</span>
@@ -94,6 +113,7 @@
 
       <div class="card-top">
         <h3>Holden/HSV Wheel and Hubcap Pack</h3>
+        <div class="card" data-category="wheels" data-status="released">
         <div class="badges">
           <span class="badge badge-released">Released</span>
           <span class="badge">v1.5</span>
@@ -214,6 +234,42 @@
       nextBtn.style.display = "none";
       dotsWrap.style.display = "none";
     }
+  });
+</script>
+<script>
+  const searchInput = document.getElementById("modSearch");
+  const filterButtons = document.querySelectorAll(".filter-buttons button");
+  const cards = document.querySelectorAll(".card");
+
+  let activeFilter = "all";
+
+  function applyFilters() {
+    const query = searchInput.value.toLowerCase();
+
+    cards.forEach(card => {
+      const title = card.querySelector("h3")?.textContent.toLowerCase() || "";
+      const category = card.dataset.category;
+      const status = card.dataset.status;
+
+      const matchesSearch = title.includes(query);
+      const matchesFilter =
+        activeFilter === "all" ||
+        category === activeFilter ||
+        status === activeFilter;
+
+      card.style.display = (matchesSearch && matchesFilter) ? "" : "none";
+    });
+  }
+
+  searchInput.addEventListener("input", applyFilters);
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      filterButtons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      activeFilter = btn.dataset.filter;
+      applyFilters();
+    });
   });
 </script>
 <button class="back-to-top" type="button" aria-label="Back to top">↑</button>
