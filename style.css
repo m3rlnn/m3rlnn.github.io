@@ -78,10 +78,11 @@ section {
 
 .mod-img {
     width: 100%;
-    height: 160px;
-    object-fit: cover;
+    height: 160px;          /* fixed banner height */
+    object-fit: cover;     /* crop, don’t stretch */
     border-radius: 10px;
     margin-bottom: 12px;
+    background: #111;
 }
 
 footer {
