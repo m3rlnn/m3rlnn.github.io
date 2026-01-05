@@ -230,3 +230,27 @@ input:focus, select:focus, textarea:focus {
         border-color: #2a2a2a;
     }
 }
+
+.access {
+    margin-top: 10px;
+    font-size: 0.9em;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: #181818;
+    border: 1px solid #2a2a2a;
+    color: #d0d0d0;
+}
+
+.access strong {
+    color: #eaeaea;
+}
+
+.access-free {
+    border-color: #2f4a2f;
+    background: #1a241a;
+}
+
+.access-patreon {
+    border-color: #4a3a2f;
+    background: #241f1a;
+}
