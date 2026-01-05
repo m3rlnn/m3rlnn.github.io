@@ -7,6 +7,12 @@
 </head>
 <body>
 
+<!-- Global links (edit these once) -->
+<script>
+  const MCW_PATREON = "https://www.patreon.com/MerlinsCustomWorks";
+  const MCW_DISCORD = "https://discord.gg/9Dx7QPfXha";
+</script>
+
 <header>
   <h1><a class="brand" href="index.html">Merlin Custom Works</a></h1>
   <nav>
@@ -37,13 +43,12 @@
       </p>
 
       <div class="links">
-        <a class="icon-btn" href="#" title="Patreon (placeholder)" aria-label="Patreon link">
+        <a class="icon-btn" href="" data-link="patreon" title="Patreon" aria-label="Patreon link" target="_blank" rel="noopener">
           <img src="assets/patreon.svg" alt="Patreon">
         </a>
-        <a class="icon-btn" href="#" title="Discord (placeholder)" aria-label="Discord link">
+        <a class="icon-btn" href="" data-link="discord" title="Discord" aria-label="Discord link" target="_blank" rel="noopener">
           <img src="assets/discord.svg" alt="Discord">
         </a>
-      </div>
     </div>
 
     <div class="card">
@@ -57,13 +62,13 @@
       </p>
 
       <div class="links">
-        <a class="icon-btn" href="#" title="Patreon (placeholder)" aria-label="Patreon link">
+        <a class="icon-btn" href="" data-link="patreon" title="Patreon" aria-label="Patreon link" target="_blank" rel="noopener">
           <img src="assets/patreon.svg" alt="Patreon">
         </a>
-        <a class="icon-btn" href="#" title="Discord (placeholder)" aria-label="Discord link">
+        <a class="icon-btn" href="" data-link="discord" title="Discord" aria-label="Discord link" target="_blank" rel="noopener">
           <img src="assets/discord.svg" alt="Discord">
         </a>
-      </div>
+    </div>
     </div>
   </div>
 </section>
@@ -71,6 +76,12 @@
 <footer>
   <p>© Merlin Custom Works</p>
 </footer>
+
+<script>
+  // Apply global links to all icon buttons
+  document.querySelectorAll('[data-link="patreon"]').forEach(a => a.href = MCW_PATREON);
+  document.querySelectorAll('[data-link="discord"]').forEach(a => a.href = MCW_DISCORD);
+</script>
 
 </body>
 </html>
