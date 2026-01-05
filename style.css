@@ -77,8 +77,8 @@ footer {
 }
 
 .icon-btn {
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     padding: 6px;
     border-radius: 6px;
     background: #2a2a2a;
@@ -89,8 +89,8 @@ footer {
 }
 
 .icon-btn img {
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     object-fit: contain;
     filter: brightness(0.9);
 }
