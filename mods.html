@@ -36,7 +36,18 @@
 
     <!-- CARD 1 -->
     <div class="card">
-      <img class="mod-img" src="images/vn-sedan-ls.jpg" alt="VN Sedan LS">
+      <div class="carousel" data-carousel>
+        <div class="carousel-track is-loading">
+          <img class="carousel-slide" src="images/vn-sedan-ls.jpg" alt="CFW VN Engine Pack screenshot 1" loading="lazy">
+          <img class="carousel-slide" src="images/vn-sedan-ls2.jpg" alt="CFW VN Engine Pack screenshot 2" loading="lazy">
+          <img class="carousel-slide" src="images/vn-sedan-ls3.jpg" alt="CFW VN Engine Pack screenshot 3" loading="lazy">
+      </div>
+
+      <button class="carousel-btn prev" type="button" aria-label="Previous image">‹</button>
+      <button class="carousel-btn next" type="button" aria-label="Next image">›</button>
+
+      <div class="carousel-dots" aria-hidden="true"></div>
+      </div>
 
       <div class="card-top">
         <h3>CFW VN Engine Pack</h3>
@@ -135,6 +146,71 @@
   // Apply global links to all icon buttons
   document.querySelectorAll('[data-link="patreon"]').forEach(a => a.href = MCW_PATREON);
   document.querySelectorAll('[data-link="discord"]').forEach(a => a.href = MCW_DISCORD);
+</script>
+
+  <script>
+  // Existing global links (keep this if you already have it)
+  document.querySelectorAll('[data-link="patreon"]').forEach(a => a.href = MCW_PATREON);
+  document.querySelectorAll('[data-link="discord"]').forEach(a => a.href = MCW_DISCORD);
+
+  // Carousel setup
+  document.querySelectorAll('[data-carousel]').forEach((carousel) => {
+    const track = carousel.querySelector('.carousel-track');
+    const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
+    const prevBtn = carousel.querySelector('.carousel-btn.prev');
+    const nextBtn = carousel.querySelector('.carousel-btn.next');
+    const dotsWrap = carousel.querySelector('.carousel-dots');
+
+    if (!track || slides.length === 0) return;
+
+    // Build dots
+    dotsWrap.innerHTML = "";
+    const dots = slides.map((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      d.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(d);
+      return d;
+    });
+
+    let index = 0;
+
+    function update() {
+      track.style.transform = `translateX(${-index * 100}%)`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    }
+
+    function goTo(i) {
+      index = (i + slides.length) % slides.length;
+      update();
+    }
+
+    prevBtn?.addEventListener('click', () => goTo(index - 1));
+    nextBtn?.addEventListener('click', () => goTo(index + 1));
+
+    // Keyboard support when hovered/focused
+    carousel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') goTo(index - 1);
+      if (e.key === 'ArrowRight') goTo(index + 1);
+    });
+    carousel.tabIndex = 0;
+
+    // Remove blur once the first image loads
+    const first = slides[0];
+    if (first.complete) {
+      track.classList.remove('is-loading');
+    } else {
+      first.addEventListener('load', () => track.classList.remove('is-loading'), { once: true });
+      first.addEventListener('error', () => track.classList.remove('is-loading'), { once: true });
+    }
+
+    // If only one slide, hide arrows & dots
+    if (slides.length === 1) {
+      prevBtn.style.display = "none";
+      nextBtn.style.display = "none";
+      dotsWrap.style.display = "none";
+    }
+  });
 </script>
 
 </body>
