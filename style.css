@@ -392,3 +392,16 @@ input:focus, select:focus, textarea:focus {
 .carousel-dot.active {
     background: rgba(255,255,255,0.7);
 }
+
+.bg-logo {
+    position: fixed;
+    inset: 0;
+    background-image: url("assets/logo.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 600px;
+    opacity: 0.06;              /* VERY subtle */
+    filter: blur(12px);
+    pointer-events: none;       /* clicks pass through */
+    z-index: -1;                /* stays behind everything */
+}
