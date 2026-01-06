@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Devlog | Merlin Custom Works</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .devlog-wrap{max-width:900px;margin:12px auto;}
+    .admin-grid{display:grid;gap:10px}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .row input,.row textarea{flex:1;min-width:220px}
+    .btn{padding:.6rem .9rem;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff;border-radius:10px;cursor:pointer}
+    .btn:hover{background:rgba(255,255,255,.10)}
+    .btn.danger{border-color:rgba(255,80,80,.35);background:rgba(255,80,80,.12)}
+    .btn.danger:hover{background:rgba(255,80,80,.18)}
+    .pill{font-size:.85rem;opacity:.8}
+    .md img{max-width:100%;border-radius:14px;margin:10px 0;display:block}
+    .md iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:14px;margin:10px 0}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media(max-width:800px){.split{grid-template-columns:1fr}}
+    pre{overflow:auto;background:rgba(0,0,0,.35);padding:10px;border-radius:12px}
+    code{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace}
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="site-title">Merlin Custom Works</a>
+  <nav class="site-nav">
+    <a href="index.html">Home</a>
+    <a href="mods.html">Mods</a>
+    <a href="downloads.html">Downloads</a>
+    <a href="devlog.html" class="active">Devlog</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>Devlog</h2>
+  <p>Progress updates, WIP notes, release prep.</p>
+</section>
+
+<div class="devlog-wrap">
+
+  <div class="card row" style="justify-content:space-between;">
+    <h3 style="margin:0;">Posts</h3>
+    <button id="adminToggle" class="btn" type="button">Admin</button>
+  </div>
+
+  <div id="adminPanel" class="card" style="display:none;">
+    <h3 style="margin-top:0;">Admin</h3>
+
+    <div id="adminLogin" class="admin-grid">
+      <input id="adminKey" type="password" placeholder="Enter admin key…">
+      <div class="row">
+        <button id="loginBtn" class="btn" type="button">Login</button>
+        <span id="loginMsg" class="pill"></span>
+      </div>
+    </div>
+
+    <div id="adminPost" style="display:none;" class="admin-grid">
+      <input id="postId" type="hidden">
+
+      <input id="postTitle" type="text" placeholder="Post title">
+      <textarea id="postBody" rows="9" placeholder="Write your update in Markdown…"></textarea>
+      <input id="postTags" type="text" placeholder="Tags (comma separated) e.g. 240z,wip,release">
+
+      <div class="row">
+        <button id="publishBtn" class="btn" type="button">Publish</button>
+        <button id="updateBtn" class="btn" type="button" style="display:none;">Update</button>
+        <button id="cancelEditBtn" class="btn danger" type="button" style="display:none;">Cancel Edit</button>
+        <span id="postMsg" class="pill"></span>
+      </div>
+
+      <div class="split">
+        <div>
+          <h4 style="margin:0 0 6px 0;">Preview</h4>
+          <div id="preview" class="md card" style="margin:0;"></div>
+        </div>
+        <div>
+          <h4 style="margin:0 0 6px 0;">Markdown tips</h4>
+          <div class="card" style="margin:0;">
+            <p class="meta" style="white-space:pre-wrap;margin:0;">
+# Heading
+## Smaller heading
+
+**bold**  *italic*
+- dot point
+1. numbered
+
+Paste an image link:
+https://example.com/pic.jpg
+
+Paste a YouTube link:
+https://youtu.be/VIDEO_ID
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="postsWrap"></div>
+</div>
+
+<!-- Markdown + sanitiser -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+
+<script>
+  const API_BASE = "https://mcw-access.merlinx067.workers.dev"; // your worker
+  const postsWrap = document.getElementById("postsWrap");
+
+  const adminToggle = document.getElementById("adminToggle");
+  const adminPanel = document.getElementById("adminPanel");
+
+  const adminKey = document.getElementById("adminKey");
+  const loginBtn = document.getElementById("loginBtn");
+  const loginMsg = document.getElementById("loginMsg");
+
+  const adminLogin = document.getElementById("adminLogin");
+  const adminPost = document.getElementById("adminPost");
+
+  const postId = document.getElementById("postId");
+  const postTitle = document.getElementById("postTitle");
+  const postBody = document.getElementById("postBody");
+  const postTags = document.getElementById("postTags");
+
+  const publishBtn = document.getElementById("publishBtn");
+  const updateBtn = document.getElementById("updateBtn");
+  const cancelEditBtn = document.getElementById("cancelEditBtn");
+  const postMsg = document.getElementById("postMsg");
+
+  const preview = document.getElementById("preview");
+
+  adminToggle.addEventListener("click", () => {
+    adminPanel.style.display = adminPanel.style.display === "none" ? "" : "none";
+  });
+
+  // ---- Auto-embed renderer (images + YouTube) ----
+  const renderer = new marked.Renderer();
+
+  renderer.link = (href, title, text) => {
+    const url = String(href || "");
+    const lower = url.toLowerCase();
+
+    // image auto-embed
+    if (lower.match(/\.(png|jpg|jpeg|gif|webp)$/)) {
+      return `<img src="${escapeAttr(url)}" alt="${escapeAttr(text || "image")}">`;
+    }
+
+    // youtube auto-embed
+    const yt = parseYouTube(url);
+    if (yt) {
+      return `<iframe src="https://www.youtube-nocookie.com/embed/${escapeAttr(yt)}" allowfullscreen></iframe>`;
+    }
+
+    const t = title ? ` title="${escapeAttr(title)}"` : "";
+    return `<a href="${escapeAttr(url)}"${t} target="_blank" rel="noopener noreferrer">${escapeHtml(text || url)}</a>`;
+  };
+
+  marked.setOptions({ renderer, breaks: true });
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+  function escapeAttr(s){ return escapeHtml(s); }
+
+  function parseYouTube(url){
+    try{
+      const u = new URL(url);
+      if (u.hostname.includes("youtu.be")) return u.pathname.replace("/","");
+      if (u.hostname.includes("youtube.com")) return u.searchParams.get("v");
+      return null;
+    } catch { return null; }
+  }
+
+  function renderMarkdown(md){
+    const raw = marked.parse(md || "");
+    return DOMPurify.sanitize(raw, { USE_PROFILES: { html: true } });
+  }
+
+  function updatePreview(){
+    preview.innerHTML = renderMarkdown(postBody.value);
+  }
+  postBody.addEventListener("input", updatePreview);
+  updatePreview();
+
+  async function loadPosts(){
+    postsWrap.innerHTML = `<div class="card">Loading…</div>`;
+    const res = await fetch(`${API_BASE}/posts`);
+    const data = await res.json();
+    const posts = data.posts || [];
+
+    if (!posts.length) {
+      postsWrap.innerHTML = `<div class="card">No posts yet.</div>`;
+      return;
+    }
+
+    postsWrap.innerHTML = posts.map(p => `
+      <div class="card" style="margin-bottom:12px;">
+        <div class="row" style="justify-content:space-between;">
+          <h3 style="margin:0;">${escapeHtml(p.title)}</h3>
+          <span class="pill">${new Date(p.createdAt).toLocaleString()}${p.updatedAt && p.updatedAt !== p.createdAt ? " • edited" : ""}</span>
+        </div>
+        ${p.tags?.length ? `<p class="meta">Tags: ${p.tags.map(escapeHtml).join(", ")}</p>` : ""}
+        <div class="md">${renderMarkdown(p.body)}</div>
+
+        <div class="row" style="justify-content:flex-end; margin-top:10px;">
+          <button class="btn" data-edit="${p.id}">Edit</button>
+          <button class="btn danger" data-del="${p.id}">Delete</button>
+        </div>
+      </div>
+    `).join("");
+
+    // Wire edit/delete buttons
+    postsWrap.querySelectorAll("[data-edit]").forEach(btn => {
+      btn.addEventListener("click", () => startEdit(btn.getAttribute("data-edit"), posts));
+    });
+    postsWrap.querySelectorAll("[data-del]").forEach(btn => {
+      btn.addEventListener("click", () => deletePost(btn.getAttribute("data-del")));
+    });
+  }
+
+  async function startEdit(id, posts){
+    // Show admin panel + editor
+    adminPanel.style.display = "";
+    adminLogin.style.display = "none";
+    adminPost.style.display = "";
+
+    const p = posts.find(x => x.id === id);
+    if (!p) return;
+
+    postId.value = p.id;
+    postTitle.value = p.title;
+    postBody.value = p.body;
+    postTags.value = (p.tags || []).join(", ");
+    updatePreview();
+
+    publishBtn.style.display = "none";
+    updateBtn.style.display = "";
+    cancelEditBtn.style.display = "";
+    postMsg.textContent = "Editing post…";
+  }
+
+  function resetEditor(){
+    postId.value = "";
+    postTitle.value = "";
+    postBody.value = "";
+    postTags.value = "";
+    updatePreview();
+
+    publishBtn.style.display = "";
+    updateBtn.style.display = "none";
+    cancelEditBtn.style.display = "none";
+    postMsg.textContent = "";
+  }
+
+  cancelEditBtn.addEventListener("click", resetEditor);
+
+  loginBtn.addEventListener("click", async () => {
+    loginMsg.textContent = "Logging in…";
+    const key = adminKey.value.trim();
+    if (!key) { loginMsg.textContent = "Enter a key."; return; }
+
+    const res = await fetch(`${API_BASE}/admin/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ key })
+    });
+
+    if (!res.ok) { loginMsg.textContent = "Wrong key."; return; }
+
+    loginMsg.textContent = "Logged in.";
+    adminLogin.style.display = "none";
+    adminPost.style.display = "";
+  });
+
+  publishBtn.addEventListener("click", async () => {
+    postMsg.textContent = "Publishing…";
+    const title = postTitle.value.trim();
+    const body = postBody.value.trim();
+    const tags = postTags.value.split(",").map(t => t.trim()).filter(Boolean);
+
+    if (!title || !body) { postMsg.textContent = "Title + body required."; return; }
+
+    const res = await fetch(`${API_BASE}/admin/post`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ title, body, tags })
+    });
+
+    if (!res.ok) { postMsg.textContent = "Post failed (not logged in?)."; return; }
+
+    postMsg.textContent = "Posted!";
+    resetEditor();
+    await loadPosts();
+  });
+
+  updateBtn.addEventListener("click", async () => {
+    postMsg.textContent = "Updating…";
+    const id = postId.value;
+    const title = postTitle.value.trim();
+    const body = postBody.value.trim();
+    const tags = postTags.value.split(",").map(t => t.trim()).filter(Boolean);
+
+    if (!id) { postMsg.textContent = "Missing post id."; return; }
+    if (!title || !body) { postMsg.textContent = "Title + body required."; return; }
+
+    const res = await fetch(`${API_BASE}/admin/post/${encodeURIComponent(id)}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ title, body, tags })
+    });
+
+    if (!res.ok) { postMsg.textContent = "Update failed (not logged in?)."; return; }
+
+    postMsg.textContent = "Updated!";
+    resetEditor();
+    await loadPosts();
+  });
+
+  async function deletePost(id){
+    if (!confirm("Delete this post? This cannot be undone.")) return;
+
+    const res = await fetch(`${API_BASE}/admin/post/${encodeURIComponent(id)}`, {
+      method: "DELETE",
+      credentials: "include"
+    });
+
+    if (!res.ok) {
+      alert("Delete failed (not logged in?).");
+      return;
+    }
+    await loadPosts();
+  }
+
+  loadPosts();
+</script>
+
+</body>
+</html>
