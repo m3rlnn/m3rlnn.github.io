@@ -241,7 +241,7 @@
     }
 
     unlockBtn.addEventListener("click", async () => {
-      const code = codeInput.value.trim();
+      const code = codeInput.value.trim().toUpperCase();
       if (!code) return;
 
       accessStatus.textContent = "Checking…";
